@@ -7,6 +7,11 @@ on:
       - main
       - 'feature/*'
 
+env:
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+  MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+  MONGO_URI: "mongodb+srv://cluster1.5yieo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1"
+
 jobs: 
   unit-testing: 
     name: unit testing
@@ -22,3 +27,8 @@ jobs:
         run: npm install
       - name: unit-test
         run: npm test
+      - name: archive test
+        uses: actions/upload-artifact@v3
+        with: 
+          name: test-result
+          path: test-results.xml
